@@ -1,0 +1,47 @@
+<html>
+<title>Url shortener</title>
+<body>
+
+<a href="/help">GO HOME</a><br>
+
+<form id="registerForm">
+    <label for="jwtToken">JWT Token:</label><br>
+    <input type="text" id="jwtToken" name="jwtToken"><br>
+    <label for="url">Long URL:</label><br>
+    <input type="text" id="url" name="url"><br>
+    <label for="redirectType">Redirect type:</label><br>
+    <input type="text" id="redirectType" name="redirectType"><br>
+    <input type="submit" value="Submit">
+</form>
+
+<div id="responseContainer"></div> <!-- Container to display response -->
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var form = document.getElementById("registerForm");
+        var formData = new FormData(form);
+        var jwtToken = document.getElementById("jwtToken").value;
+
+        // Send JSON data to the server with JWT token in the Authorization header
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:8080/register");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "Bearer " + jwtToken); // Add JWT token to Authorization header
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Display response data
+                    document.getElementById("responseContainer").innerText = xhr.responseText;
+                } else {
+                    // Handle error response
+                    document.getElementById("responseContainer").innerText = "Error: " + xhr.status;
+                }
+            }
+        };
+        xhr.send(JSON.stringify(Object.fromEntries(formData.entries())));
+    });
+</script>
+</body>
+</html>

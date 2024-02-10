@@ -1,0 +1,53 @@
+<html>
+<title>Url shortener</title>
+<body>
+
+<a href="/help">GO HOME</a><br>
+
+<form id="accountForm">
+    <label for="jwtToken">JWT Token:</label><br>
+    <input type="text" id="jwtToken" name="jwtToken"><br>
+    <label for="accId">Account Id:</label><br>
+    <input type="text" id="accId" name="AccountId"><br>
+    <input type="submit" value="Submit">
+</form>
+
+<div id="responseContainer"></div> <!-- Container to display response -->
+
+<script>
+document.getElementById("accountForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    var form = document.getElementById("accountForm");
+    var formData = new FormData(form);
+    var jsonObject = {};
+    var jwtToken = document.getElementById("jwtToken").value;
+    var accId = document.getElementById("accId").value;
+
+    // Convert FormData to JSON
+    formData.forEach(function(value, key){
+        jsonObject[key] = value;
+    });
+
+    // Send JSON data to the server
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:8080/statistic/" + accId);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer " + jwtToken); // Add JWT token to Authorization header
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                // Display response data
+                document.getElementById("responseContainer").innerText = xhr.responseText;
+            } else {
+                // Handle error response
+                document.getElementById("responseContainer").innerText = "Error: " + xhr.status;
+                document.getElementById("responseContainer").innerText = xhr.responseText;
+            }
+        }
+    };
+    xhr.send(JSON.stringify(jsonObject));
+});
+</script>
+</body>
+</html>
