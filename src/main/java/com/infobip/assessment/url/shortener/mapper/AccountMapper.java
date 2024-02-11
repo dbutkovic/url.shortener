@@ -4,7 +4,6 @@ import com.infobip.assessment.url.shortener.dao.request.AccountRequest;
 import com.infobip.assessment.url.shortener.dao.response.AccountResponse;
 import com.infobip.assessment.url.shortener.persistence.entity.AccountEntity;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.stereotype.Component;
 
 public class AccountMapper {
 

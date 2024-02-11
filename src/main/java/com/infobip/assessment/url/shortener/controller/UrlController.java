@@ -19,13 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 import java.util.Map;
 
 @Controller
@@ -44,7 +39,8 @@ public class UrlController {
             nickname = "create")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "SERVER_ERROR"),
-            @ApiResponse(code = 404, message = "SERVICE_NOT_FOUND"),
+            @ApiResponse(code = 403, message = "FORBIDDEN"),
+            @ApiResponse(code = 401, message = "UNAUTHORIZED"),
             @ApiResponse(code = 400, message = "BAD_REQUEST"),
             @ApiResponse(code = 200, message = "OK", response = ResponseEntity.class, responseContainer = "Class")})
     public ResponseEntity<ShortUrlResponse> createShortenUrl(Authentication authentication,
@@ -62,18 +58,14 @@ public class UrlController {
             nickname = "redirect")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "SERVER_ERROR"),
-            @ApiResponse(code = 404, message = "SERVICE_NOT_FOUND"),
             @ApiResponse(code = 400, message = "BAD_REQUEST"),
             @ApiResponse(code = 200, message = "OK", response = ResponseEntity.class, responseContainer = "Class")})
     public ResponseEntity<Void> redirect(@ApiParam(value = "shortUrl", required = true) @PathVariable(name = "shortUrl") String shortUrl) {
         var originalUrlEntity = urlService.getOriginalUrl(shortUrl);
 
-        HttpHeaders headers = new HttpHeaders();
+        var headers = new HttpHeaders();
         headers.setLocation(URI.create(originalUrlEntity.getLongUrl()));
-        HttpStatus status = HttpStatus.FOUND;
-        if (originalUrlEntity.getRedirectType().equals(Short.parseShort("301"))) {
-            status = HttpStatus.MOVED_PERMANENTLY;
-        }
+        var status = HttpStatus.valueOf(originalUrlEntity.getRedirectType().name());
 
         return new ResponseEntity<>(headers, status);
     }
@@ -84,7 +76,8 @@ public class UrlController {
             nickname = "statistic")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "SERVER_ERROR"),
-            @ApiResponse(code = 404, message = "SERVICE_NOT_FOUND"),
+            @ApiResponse(code = 403, message = "FORBIDDEN"),
+            @ApiResponse(code = 401, message = "UNAUTHORIZED"),
             @ApiResponse(code = 400, message = "BAD_REQUEST"),
             @ApiResponse(code = 200, message = "OK", response = ResponseEntity.class, responseContainer = "Class")})
     public ResponseEntity<Map<String, Integer>> getStatistic(Authentication authentication,

@@ -8,10 +8,9 @@ import com.infobip.assessment.url.shortener.security.MyUserPrincipal;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,8 +25,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class LoginController {
 
-    private final AuthenticationManager authenticationManager;
-    private final MyUserDetailsService myUserDetailsService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
 
     @PostMapping
     @ApiOperation(value = "User login",

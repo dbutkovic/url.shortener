@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UrlRepository extends JpaRepository<UrlEntity, String>, JpaSpecificationExecutor<UrlEntity> {
-    List<UrlEntity> findAllByAccountId(String accountId);
+    List<UrlEntity> findAllByAccountId(String accountId); // Add pagination
 
     Optional<UrlEntity> findByShortUrl(String shortUrl);
 }

@@ -29,7 +29,6 @@ public class AccountController {
             nickname = "create")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "SERVER_ERROR"),
-            @ApiResponse(code = 404, message = "SERVICE_NOT_FOUND"),
             @ApiResponse(code = 400, message = "BAD_REQUEST"),
             @ApiResponse(code = 200, message = "OK", response = ResponseEntity.class, responseContainer = "Class")})
     public ResponseEntity<AccountResponse> createAccount(@RequestBody() AccountRequest account) {

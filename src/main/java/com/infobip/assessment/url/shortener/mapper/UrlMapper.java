@@ -2,8 +2,8 @@ package com.infobip.assessment.url.shortener.mapper;
 
 import com.infobip.assessment.url.shortener.dao.request.UrlRequest;
 import com.infobip.assessment.url.shortener.dao.response.ShortUrlResponse;
+import com.infobip.assessment.url.shortener.enums.RedirectType;
 import com.infobip.assessment.url.shortener.persistence.entity.UrlEntity;
-import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
@@ -17,7 +17,7 @@ public class UrlMapper {
                 .id(UUID.randomUUID())
                 .longUrl(urlRequest.getUrl())
                 .shortUrl(BASE_URL + UUID.randomUUID()) // Should not save BASE_URL in database
-                .redirectType(urlRequest.getRedirectType())
+                .redirectType(RedirectType.fromStatusCode(urlRequest.getRedirectType()))
                 .numberOfCalls(0)
                 .build();
     }

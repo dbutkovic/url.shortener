@@ -1,7 +1,10 @@
 package com.infobip.assessment.url.shortener.persistence.entity;
 
+import com.infobip.assessment.url.shortener.enums.RedirectType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -36,8 +39,9 @@ public class UrlEntity {
     @Column(name = "shortUrl")
     private String shortUrl;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "redirectType")
-    private Short redirectType;
+    private RedirectType redirectType;
 
     @Column(name = "numberOfCalls")
     private Integer numberOfCalls;
