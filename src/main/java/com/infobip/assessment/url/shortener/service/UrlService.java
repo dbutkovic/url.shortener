@@ -23,7 +23,7 @@ public class UrlService {
 
     private final UrlRepository repository;
 
-    UrlService(UrlRepository urlRepository) {
+    public UrlService(UrlRepository urlRepository) {
         this.repository = urlRepository;
     }
 
@@ -34,19 +34,6 @@ public class UrlService {
         entity.setAccountId(accountId);
 
         return UrlMapper.mapEntityToRequest(repository.save(entity));
-    }
-
-    public List<ShortUrlResponse> allUrls(String accountId) {
-
-        if (StringUtils.isEmpty(accountId)) {
-            return repository.findAllByAccountId(accountId).stream()
-                    .map(UrlMapper::mapEntityToRequest)
-                    .toList();
-        } else {
-            return repository.findAll().stream()
-                    .map(UrlMapper::mapEntityToRequest)
-                    .toList();
-        }
     }
 
     public UrlEntity getOriginalUrl(String shortUrl) {

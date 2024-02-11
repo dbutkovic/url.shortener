@@ -70,9 +70,9 @@ public class UrlController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(originalUrlEntity.getLongUrl()));
-        HttpStatus status = HttpStatus.TEMPORARY_REDIRECT;
+        HttpStatus status = HttpStatus.FOUND;
         if (originalUrlEntity.getRedirectType().equals(Short.parseShort("301"))) {
-            status = HttpStatus.PERMANENT_REDIRECT;
+            status = HttpStatus.MOVED_PERMANENTLY;
         }
 
         return new ResponseEntity<>(headers, status);

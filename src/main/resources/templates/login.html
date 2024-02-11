@@ -38,7 +38,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
                 document.getElementById("responseContainer").innerText = xhr.responseText;
             } else {
                 // Handle error response
-                document.getElementById("responseContainer").innerText = "Error: " + xhr.status;
+                document.getElementById("responseContainer").innerText = "Error: " + xhr.status + "\n" + xhr.responseText;
             }
         }
     };

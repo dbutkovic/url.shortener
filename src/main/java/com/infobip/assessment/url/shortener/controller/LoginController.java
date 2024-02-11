@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiResponses;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,7 +37,7 @@ public class LoginController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 404, message = "Service not found"),
             @ApiResponse(code = 200, message = "Successful login", response = JwtResponse.class)})
-    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest authenticationRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest authenticationRequest) throws BadRequestException {
 
         try {
             authenticate(authenticationRequest.accountId(), authenticationRequest.password());
@@ -46,7 +48,7 @@ public class LoginController {
 
             return ResponseEntity.ok(new JwtResponse(token));
         } catch (Exception e) {
-            throw new EntityNotFoundException("Wrong username or password");
+            return new ResponseEntity<>("Wrong username or Password!", HttpStatus.UNAUTHORIZED);
         }
     }
 
