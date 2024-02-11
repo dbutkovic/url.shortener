@@ -6,12 +6,9 @@ import com.infobip.assessment.url.shortener.controller.security.request.LoginReq
 import com.infobip.assessment.url.shortener.controller.security.response.JwtResponse;
 import com.infobip.assessment.url.shortener.dao.request.AccountRequest;
 import com.infobip.assessment.url.shortener.dao.response.AccountResponse;
-import com.infobip.assessment.url.shortener.mapper.AccountMapper;
-import com.infobip.assessment.url.shortener.mapper.UrlMapper;
 import com.infobip.assessment.url.shortener.persistence.repository.AccountRepository;
 import com.infobip.assessment.url.shortener.persistence.repository.UrlRepository;
 import com.infobip.assessment.url.shortener.service.AccountService;
-import com.infobip.assessment.url.shortener.service.SecurityService;
 import com.infobip.assessment.url.shortener.service.UrlService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.ClassRule;
@@ -21,16 +18,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.util.TestPropertyValues;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestConstructor;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.web.context.WebApplicationContext;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
@@ -53,9 +44,6 @@ public class TestBase {
 
     @Autowired
     protected AccountService accountService;
-
-    @Autowired
-    protected SecurityService securityService;
 
     @Autowired
     protected UrlService urlService;

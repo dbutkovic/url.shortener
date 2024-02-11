@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.Builder;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class UrlService {
         this.repository = urlRepository;
     }
 
-
+    @Transactional
     public ShortUrlResponse createUrl(UrlRequest urlRequest, String accountId) {
 
         var entity = UrlMapper.mapRequestToEntity(urlRequest);
@@ -34,6 +35,7 @@ public class UrlService {
         return UrlMapper.mapEntityToRequest(repository.save(entity));
     }
 
+    @Transactional
     public UrlEntity getOriginalUrl(String shortUrl) {
         var urlEntity = repository.findByShortUrl(UrlMapper.BASE_URL + shortUrl).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Url '%s' do not exist!", shortUrl)));
@@ -42,6 +44,7 @@ public class UrlService {
         return urlEntity;
     }
 
+    @Transactional(readOnly = true)
     public Map<String, Integer> getStatistic(String accountId) {
         Map<String, Integer> statistic = new HashMap<>(){};
         repository.findAllByAccountId(accountId).forEach(url -> statistic.put(url.getLongUrl(), url.getNumberOfCalls()));

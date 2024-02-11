@@ -7,6 +7,7 @@ import com.infobip.assessment.url.shortener.persistence.repository.AccountReposi
 import lombok.Builder;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @ToString
@@ -20,6 +21,7 @@ public class AccountService {
         this.repository = accountRepository;
     }
 
+    @Transactional
     public AccountResponse createAccount(AccountRequest account) {
         var existing = repository.findByAccountId(account.getAccountId());
         if (existing != null) {

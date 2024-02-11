@@ -2,7 +2,6 @@ package com.infobip.assessment.url.shortener.controller;
 
 import com.infobip.assessment.url.shortener.dao.request.UrlRequest;
 import com.infobip.assessment.url.shortener.dao.response.ShortUrlResponse;
-import com.infobip.assessment.url.shortener.service.SecurityService;
 import com.infobip.assessment.url.shortener.service.UrlService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -26,9 +25,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/")
 public class UrlController {
-
-    @Autowired
-    private SecurityService securityService;
 
     @Autowired
     private UrlService urlService;
