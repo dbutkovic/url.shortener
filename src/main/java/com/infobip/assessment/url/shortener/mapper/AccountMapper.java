@@ -13,7 +13,7 @@ public class AccountMapper {
     public static AccountEntity mapRequestToEntity(AccountRequest accountRequest) {
         var password = RandomStringUtils.randomAlphanumeric(8);
 
-        return new AccountEntity().toBuilder()
+        return AccountEntity.builder()
                 .accountId(accountRequest.getAccountId())
                 .password(password)
                 .build();

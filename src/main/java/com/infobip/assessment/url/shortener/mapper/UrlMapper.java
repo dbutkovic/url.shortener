@@ -14,7 +14,7 @@ public class UrlMapper {
 
     public static UrlEntity mapRequestToEntity(UrlRequest urlRequest) {
 
-        return new UrlEntity().toBuilder()
+        return UrlEntity.builder()
                 .id(UUID.randomUUID()) // Can be same for short url
                 .longUrl(urlRequest.getUrl())
                 .shortUrl(BASE_URL + UUID.randomUUID()) // Should not save BASE_URL in database
