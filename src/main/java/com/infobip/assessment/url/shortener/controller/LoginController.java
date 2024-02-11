@@ -36,9 +36,9 @@ public class LoginController {
             notes = "user login",
             nickname = "login")
     @ApiResponses(value = {
-            @ApiResponse(code = 500, message = "Server error"),
-            @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful login", response = JwtResponse.class)})
+            @ApiResponse(code = 500, message = "SERVER_ERROR"),
+            @ApiResponse(code = 400, message = "BAD_REQUEST"),
+            @ApiResponse(code = 200, message = "SUCCESSFUL LOGIN", response = JwtResponse.class)})
     public ResponseEntity<?> login(@RequestBody LoginRequest authenticationRequest) throws BadRequestException {
 
         try {

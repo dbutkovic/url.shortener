@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @AllArgsConstructor
-class AccountControllerIT extends TestBase {
+class AccountControllerIntegrationTest extends TestBase {
 
     @Test
     void createAccountSuccess() {

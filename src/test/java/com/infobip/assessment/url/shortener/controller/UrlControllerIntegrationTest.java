@@ -9,15 +9,13 @@ import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import java.util.Map;
-
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @AllArgsConstructor
-class UrlControllerIT extends TestBase {
+class UrlControllerIntegrationTest extends TestBase {
 
     @Test
     void registerUrlSuccess() {
@@ -26,7 +24,7 @@ class UrlControllerIT extends TestBase {
 
         // when
         var url = "https://github.com/dbutkovic/url.shortener/tree/main";
-        Short redirectType = 301;
+        var redirectType = "301";
         var result = sendRequest(url, redirectType);
 
         // then
@@ -42,7 +40,7 @@ class UrlControllerIT extends TestBase {
 
         // when
         var url = "https://github.com/dbutkovic/url.shortener/tree/main";
-        Short redirectType = 301;
+        String redirectType = "301";
         var result = given()
                 .contentType("application/json")
                 .body(new UrlRequest(url, redirectType))
@@ -56,7 +54,7 @@ class UrlControllerIT extends TestBase {
         // given
         createAccount();
         var url = "https://github.com/dbutkovic/url.shortener/tree/main";
-        Short redirectType = 301;
+        var redirectType = "301";
         var registerUrlResult = sendRequest(url, redirectType);
 
         // when
@@ -72,11 +70,11 @@ class UrlControllerIT extends TestBase {
         // given
         createAccount();
         var testUrl1 = "https://github.com/dbutkovic/url.shortener/tree/main";
-        Short redirectType301 = 301;
+        var redirectType301 = "301";
         var registerUrlResult1 = sendRequest(testUrl1, redirectType301);
 
         var testUrl2 = "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html";
-        Short redirectType302 = 302;
+        var redirectType302 = "302";
         var registerUrlResult2 = sendRequest(testUrl2, redirectType302);
 
         // when
@@ -115,7 +113,7 @@ class UrlControllerIT extends TestBase {
                 .get("Location").getValue();
     }
 
-    private ShortUrlResponse sendRequest(String url, Short redirectType) {
+    private ShortUrlResponse sendRequest(String url, String redirectType) {
         return given()
                 .contentType("application/json")
                 .body(new UrlRequest(url, redirectType))

@@ -1,6 +1,5 @@
 package com.infobip.assessment.url.shortener.config;
 
-import com.infobip.assessment.url.shortener.persistence.repository.AccountRepository;
 import com.infobip.assessment.url.shortener.security.JwtAuthenticationEntryPoint;
 import com.infobip.assessment.url.shortener.security.JwtRequestFilter;
 import com.infobip.assessment.url.shortener.security.MyUserDetailsService;

@@ -9,12 +9,13 @@ import java.util.UUID;
 
 public class UrlMapper {
 
-    public final static String BASE_URL = "http://localhost:8080/redirect/"; // Should be in application.yaml
+    public final static String BASE_URL =
+            "http://localhost:8080/redirect/"; // Should be in application.yaml
 
     public static UrlEntity mapRequestToEntity(UrlRequest urlRequest) {
 
         return new UrlEntity().toBuilder()
-                .id(UUID.randomUUID())
+                .id(UUID.randomUUID()) // Can be same for short url
                 .longUrl(urlRequest.getUrl())
                 .shortUrl(BASE_URL + UUID.randomUUID()) // Should not save BASE_URL in database
                 .redirectType(RedirectType.fromStatusCode(urlRequest.getRedirectType()))

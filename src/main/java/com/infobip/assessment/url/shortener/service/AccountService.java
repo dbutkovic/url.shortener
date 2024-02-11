@@ -6,7 +6,6 @@ import com.infobip.assessment.url.shortener.mapper.AccountMapper;
 import com.infobip.assessment.url.shortener.persistence.repository.AccountRepository;
 import lombok.Builder;
 import lombok.ToString;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 

@@ -8,11 +8,9 @@ import com.infobip.assessment.url.shortener.persistence.repository.UrlRepository
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Builder;
 import lombok.ToString;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 

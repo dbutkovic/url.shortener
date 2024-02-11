@@ -45,9 +45,6 @@ public class UrlController {
             @ApiResponse(code = 200, message = "OK", response = ResponseEntity.class, responseContainer = "Class")})
     public ResponseEntity<ShortUrlResponse> createShortenUrl(Authentication authentication,
                                                              @RequestBody UrlRequest urlRequest) {
-
-        securityService.getAuthenticatedAccount(authentication.getName());
-
         return ResponseEntity.ok(urlService.createUrl(urlRequest, authentication.getName()));
     }
 
@@ -82,9 +79,6 @@ public class UrlController {
             @ApiResponse(code = 200, message = "OK", response = ResponseEntity.class, responseContainer = "Class")})
     public ResponseEntity<Map<String, Integer>> getStatistic(Authentication authentication,
                                                              @ApiParam(value = "AccountId", required = true) @PathVariable(name = "AccountId") String accountId) {
-
-        securityService.getAuthenticatedAccount(authentication.getName());
-
         return ResponseEntity.ok(urlService.getStatistic(accountId));
     }
 
