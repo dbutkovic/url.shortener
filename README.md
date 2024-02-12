@@ -23,4 +23,4 @@ mvn package
  - java -jar url.shortener-0.0.1-SNAPSHOT.war
  - java -jar url.shortener-0.0.1-SNAPSHOT.jar
 
-.war and .jar file are already in executable/ folder
+.war and .jar file are already in /executable folder
